@@ -12,13 +12,9 @@ require_once "includes/uwc-schedule-functions.php";
 require_once "includes/enum.alert-types.php";
 require_once "includes/class.bootstrap-alert.php";
 
-// Make sure we include the correct files
-require_once "PHPMailer/src/Exception.php";
-require_once "PHPMailer/src/PHPMailer.php";
-require_once "PHPMailer/src/SMTP.php";
-
-use \PHPMailer\PHPMailer\PHPMailer;
-use \PHPMailer\PHPMailer\Exception;
+// PHPMailer stuff
+require_once "class.phpmailer.php";
+require_once "class.smtp.php";
 
 $formJSON = json_decode(file_get_contents("./lib/form-values.json"), true);
 $formValues = $formJSON['form-values'];
