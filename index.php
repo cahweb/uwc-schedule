@@ -1,7 +1,7 @@
 <?php
 namespace CAH\UWC;
 
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 
 require_once "recaptcha.php";
 require_once "util/class.dot-env-lite.php";
@@ -100,7 +100,7 @@ if (isset($_POST['submit'])) {
         try {
             $success = false;
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer();
 
             $mail->IsSMTP();
             $mail->SMTPAuth   = true;
