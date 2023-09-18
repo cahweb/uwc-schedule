@@ -1,0 +1,145 @@
+{
+    "form-values": [
+        {
+            "name": "fullName",
+            "type": "text",
+            "label": "Full Name",
+            "required": true
+        },
+        {
+            "name": "email",
+            "type": "email",
+            "label": "Email",
+            "required": true
+        },
+        {
+            "type": "fieldset",
+            "legend": "Changes to Contact Information",
+            "formText": "Leave blank if there are no changes since the application submission.",
+            "fields": [
+                {
+                    "name": "permAddr",
+                    "type": "text",
+                    "label": "Permanent Address",
+                    "formText": "Include street, city, and ZIP code."
+                },
+                {
+                    "name": "permPhone",
+                    "type": "tel",
+                    "label": "Permanent Telephone"
+                },
+                {
+                    "name": "localAddr",
+                    "type": "text",
+                    "label": "Local Address",
+                    "formText": "Include street, city, and ZIP code."
+                },
+                {
+                    "name": "localPhone",
+                    "type": "tel",
+                    "label": "Local Telephone"
+                },
+                {
+                    "name": "cellPhone",
+                    "type": "tel",
+                    "label": "Cell/Mobile Phone"
+                }
+            ]
+        },
+        {
+            "type": "multi",
+            "label": "Commuting Time",
+            "fields": [
+                {
+                    "name": "commuteHr",
+                    "type": "number",
+                    "label": "Hours",
+                    "min": 0,
+                    "max": 23
+                },
+                {
+                    "name": "commuteMin",
+                    "type": "number",
+                    "label": "Minutes",
+                    "min": 0,
+                    "max": 59
+                }
+            ]
+        },
+        {
+            "type": "multi",
+            "label": "Expected Graduation",
+            "fields": [
+                {
+                    "name": "gradTerm",
+                    "type": "select",
+                    "label": "Term",
+                    "options": [
+                        "spring",
+                        "summer",
+                        "fall"
+                    ],
+                    "required": true
+                },
+                {
+                    "name": "gradYear",
+                    "type": "select",
+                    "label": "Year",
+                    "options": "getGradYears",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "academicStanding",
+            "type": "select",
+            "label": "Academic Standing",
+            "options": [
+                "undergraduate",
+                "graduate"
+            ],
+            "required": true
+        },
+        {
+            "name": "classSchedule",
+            "type": "textarea",
+            "label": "Class Schedule for the Term",
+            "formText": "Include course, meeting times and days, and campus (Orlando, Cocoa, Daytona, etc.)"
+        },
+        {
+            "name": "requiredCommitments",
+            "type": "textarea",
+            "label": "Required Commitments",
+            "formText": "List other required commitments such as societies, student organizations, etc."
+        },
+        {
+            "name": "schedulingConcerns",
+            "type": "textarea",
+            "label": "Scheduling Concerns",
+            "formText": "List any other considerations you think might be relevant to your UWC schedule."
+        },
+        {
+            "name": "idealHours",
+            "type": "number",
+            "label": "Ideal Number of Hours to Work",
+            "min": 3,
+            "max": 20,
+            "required": true
+        },
+        {
+            "type": "function",
+            "callable": "generateScheduleTable",
+            "args": "schedule"
+        },
+        {
+            "name": "requestReceipt",
+            "type": "select",
+            "label": "Return Receipt Request",
+            "options": [
+                "no-default",
+                {"yes": true},
+                {"no": false}
+            ]
+        }
+    ]
+}

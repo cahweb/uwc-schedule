@@ -1,0 +1,82 @@
+/* Import PT Sans Google Font */
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --uwc-primary-bg: #946f00;
+    --uwc-primary-bg-shaded: #705000;
+    --uwc-border-color-rgb: rgba(148, 111, 0, .5);
+}
+
+body {
+    font-family: 'PT Sans', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+
+dl dt,
+dl dd {
+    display: inline;
+    margin-right: 2em;
+}
+
+/* Bootstrap overrides */
+.btn-primary {
+    --bs-btn-bg: var(--uwc-primary-bg);
+    --bs-btn-border-color: var(--uwc-primary-bg);
+    --bs-btn-hover-bg: var(--uwc-primary-bg-shaded);
+    --bs-btn-hover-border-color: var(--uwc-primary-bg-shaded);
+    --bs-btn-active-bg: var(--uwc-primary-bg-shaded);
+    --bs-btn-active-border-color: var(--uwc-primary-bg-shaded);
+}
+
+.form-control,
+.form-select {
+    border: 1px solid var(--uwc-border-color-rgb);
+}
+
+fieldset.border {
+    border-color: var(--uwc-border-color-rgb) !important;
+}
+
+#preamble h1 {
+    color: #fff;
+    background-color: var(--uwc-primary-bg);
+}
+
+#header-img {
+    max-height: 45vh;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+#header-img img {
+    width: 100%;
+    object-fit: fill;
+    object-position: center;
+}
+
+#uwc-contact-header {
+    background-color: var(--uwc-primary-bg);
+    min-height: 2rem;
+}
+
+#contact-info p {
+    color: #fff;
+}
+
+#uwc-phone {
+    color: inherit;
+    text-decoration: none;
+}
+
+#calendar {
+    border-color: var(--uwc-border-color-rgb);
+}
+
+.select-cell {
+    text-align: center;
+}
+
+.select-cell select {
+    width: 50%;
+    margin: auto;
+}
