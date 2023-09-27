@@ -7,12 +7,12 @@ require_once 'uwc-schedule-functions.php';
 ?>
 <table style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000; width: 660px; margin: 2em auto;">
     <tr>
-        <th colspan="4">
+        <th colspan="2">
             <h1 style="font-size: 18px; font-weight: bold; background-color: #BFDAFF; color: #1B579F; text-align: center; padding: 0.5em 0;">Peer Consultant Schedule</h1>
         </th>
     </tr>
     <tr>
-        <td colspan="4" style="padding-bottom: 2em;">
+        <td colspan="2" style="padding-bottom: 2em;">
             <p>The following Peer Consultant schedule information was submitted on <?= date_format(new \DateTime('now', new \DateTimeZone('America/New_York')), 'D, d M Y, \a\t g:i a') ?>:</p>
         </td>
     </tr>
@@ -58,40 +58,47 @@ require_once 'uwc-schedule-functions.php';
         // Formatting the schedule as a table within a table, for ease of
         // readability (hopefully)
         case 'schedule':
+            $days = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+            ];
+
+            $hours = [
+                'default' => range(9, 19),
+                'Saturday' => [],
+                'Sunday' => range (14, 19),
+            ];
+
             $emailLabel = 'Selected Weekly Availability';
             ob_start();
             ?>
-            <table style="border: 1px solid #000; border-collapse: collapse; padding: 0.5em;">
+            <table style="padding: 0.5em; width: 90%; margin: auto;">
                 <tr>
-                    <th style="border: 1px solid #000;">Day</th>
-                    <th colspan="2" style="border: 1px solid #000;">Hours by Priority</th>
+                    <td></td>
+                <?php foreach (range(9, 19) as $hour) : ?>
+                    <th><?= ($hour <= 12 ? $hour . ($hour < 12 ? "a" : "p") : $hour - 12 . "p") ?></th>
+                <?php endforeach; ?>
                 </tr>
-            <?php foreach ($value as $day => $hours) : ?>
-                <?php
-                $priorities = [
-                    1 => [],
-                    2 => [],
-                    3 => [],
-                ];
-                foreach ($hours as $hour => $priority) {
-                    if (array_key_exists($priority, $priorities)) {
-                        $priorities[$priority][] = getTimeLabel($hour);
-                    }
-                }
-                if (!empty($priorities[1]) || !empty($priorities[2]) || !empty($priorities[3])) :
-                ?>
+            <?php foreach ($days as $day) : ?>
                 <tr>
-                    <td style="border: 1px solid #000; padding: 0 1em;"><strong><?= $day ?></strong></td>
-                    <td colspan="3" style="border: 1px solid #000; padding: 0 1em;">
-                    <?php foreach ($priorities as $priority => $hourLabels) : ?>
-                        <?php if (!empty($hourLabels)) : ?>
-                            <strong><?= $priority ?>:</strong> <?= implode(', ', $hourLabels) ?><br>
-                        <?php else: continue; ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <th style="text-align: left"><?= $day ?></th>
+                <?php foreach (range(9, 19) as $hour) : ?>
+                    <td style="padding: 0.25em; text-align: center;">
+                    <?php 
+                    if (!isset($hours[$day]) ||
+                        (isset($hours[$day]) && in_array($hour, $hours[$day]))
+                    ) :
+                    ?>
+                        <?= isset($value[$day][$hour]) && is_numeric($value[$day][$hour]) ? $value[$day][$hour] : "X" ?>
+                    <?php endif; ?>
                     </td>
+                <?php endforeach; ?>
                 </tr>
-                <?php endif; ?>
             <?php endforeach; ?>
             </table>
             <?php
@@ -115,12 +122,14 @@ require_once 'uwc-schedule-functions.php';
     }
     ?>
     <tr>
-    <?php if ($key == 'schedule') : // I could probably combine these, but meh ?>
-        <th style="text-align: left; vertical-align: top;"><?= $emailLabel ?>:</th>
-        <td colspan="3"><?= $emailValue ?></td>
+    <?php if ($key == 'schedule') : ?>
+            <th style="text-align: left;" colspan="2"><?= $emailLabel ?>:</th>
+        </tr>
+        <tr>
+            <td colspan="2"><?= $emailValue ?></td>
     <?php elseif (!empty($emailValue)): ?>
         <th style="text-align: left;"><?= $emailLabel ?>:</th>
-        <td colspan="3" style="padding-left: 1em;"><?= $emailValue ?></td>
+        <td style="padding-left: 1em;"><?= $emailValue ?></td>
     <?php endif; ?>
     </tr>
 <?php endforeach; ?>

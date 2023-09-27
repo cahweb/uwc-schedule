@@ -121,7 +121,6 @@ if (isset($_POST['submit'])) {
 
             if (!IS_DEV) {
                 $mail->AddAddress("mariana.chao@ucf.edu", "Mariana Chao");
-                $mail->AddAddress("mary.tripp@ucf.edu", "Mary Tripp");
             }
 
             if ($formVars['requestReceipt'] || IS_DEV) {
